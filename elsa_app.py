@@ -16,6 +16,7 @@ KULU_KATEGOORIAD = [
     "Auto/transport",
     "Riided",
     "Muu",
+    "Tervis",
 ]
 
 ALL_COLUMNS = ["Timestamp", "Kuupäev", "Summa", "Tüüp", "Kategooria", "Kaupmees", "Kirjeldus"]
