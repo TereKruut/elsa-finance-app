@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from konstandid import *
 from abifunktsioonid import *
+from selgitamine import *
 
 # --- Üldine seadistus ---
 st.set_page_config(page_title="Kulutuste analüüs ELSA", layout="wide")
@@ -18,17 +19,7 @@ mode = st.sidebar.radio(
 # --- Selgitus / probleemikirjeldus ---
 
 if mode == "Selgitus":
-    st.subheader("Mis probleemi ELSA lahendab?")
-    st.write(
-        "Kes meist ei sooviks paremat ülevaadet enda rahaasjadest? "
-        "ELSA on lihtne programm, kuhu saad sisestada oma igapäevased kulud ja sissetulekud. "
-        "Programm hoiab kirjeid CSV-failis, lisab neile ajatembli ja kuvab sinu rahakasutust "
-        "visuaalselt nii kategooriate kui perioodide kaupa."
-    )
-    st.write(
-        "Vali vasakult menüüst, kas soovid andmeid sisse lugeda, uusi kirjeid lisada "
-        "või kulutusi analüüsida."
-    )
+    selgita()
 
 # --- CSV lugemine (Failist lugeda) ---
 
