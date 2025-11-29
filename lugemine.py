@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 def loe():
     st.header("📂 Loe CSV-faili sisu")

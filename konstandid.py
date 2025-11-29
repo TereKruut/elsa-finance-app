@@ -1,6 +1,6 @@
 # --- Kategooriad vastavalt kirjeldusele ---
 TULU_KATEGOORIAD = ["Palk", "Investeerinud", "Lisatöö"]
-KULU_KATEGOORIAD = [
+KULU_KATEGOORIAD = ["",
     "Söök ja jook",
     "Meelelahutus",
     "Kommunaalid",
@@ -10,5 +10,6 @@ KULU_KATEGOORIAD = [
     "Muu",
     "Tervis",
 ]
+KAUPMEHED = ["","Rimi", "Selver", "Maxima", "COOP", "Elektrum", "Tartu Veevärk", "LHV","Apollo"]
 
 ALL_COLUMNS = ["Timestamp", "Kuupäev", "Summa", "Tüüp", "Kategooria", "Kaupmees", "Kirjeldus"]
