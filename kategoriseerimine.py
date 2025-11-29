@@ -1,6 +1,6 @@
-from konstandid import *
+from konstandid import KULU_KATEGOORIAD, KAUPMEHED
+import pandas as pd
 
-# Kaardistus: kaupmees -> kategooria
 KAUPMEES_TO_KATEGOORIA = {
     "Rimi": "Söök ja jook",
     "Selver": "Söök ja jook",
@@ -10,25 +10,34 @@ KAUPMEES_TO_KATEGOORIA = {
     "Elektrum": "Kommunaalid",
     "Tartu Veevärk": "Kommunaalid",
     "LHV": "Laenud",
-    # vajadusel lisa siia uusi
+    # lisa siia veel reegleid, kui tahad
 }
 
 
-def kategoriseeri(kaupmees: str, kategooria: str) -> str:
+def rakenda_kategoriseerimine(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Tagastab korrektse kategooria väljaminekule.
-    - Kui kasutaja valis kategooria käsitsi → seda EI muudeta.
-    - Kui kategooria on tühi ja kaupmehele on teada kategooria → määratakse automaatselt.
-    - Kui kategooriat ei õnnestu määrata → tagastab tühi string.
+    Täidab/muudab veeru 'Kategooria' kulukirjete puhul.
+    - Kui kasutaja on ise kategooria valinud, seda EI muudeta.
+    - Kui kategooria on tühi ja kaupmehele on vaste olemas, kategooria pannakse automaatselt.
     """
 
-    # kui kasutaja on kategooria ise valinud → ära muuda
-    if kategooria.strip():
-        return kategooria
+    def leia_kategooria(rida):
+        # ainult kulud – sissetulekute kategooriaid ei puutu
+        if rida.get("Tüüp") != "Kulu":
+            return rida.get("Kategooria", "")
 
-    # kui kaupmees puudub → ei saa midagi määrata
-    if not kaupmees.strip():
-        return ""
+        olemasolev = str(rida.get("Kategooria") or "").strip()
+        if olemasolev:
+            return olemasolev
 
-    # kui kaupmehel on vaste sõnastikus → tagasta see
-    return KAUPMEES_TO_KATEGOORIA.get(kaupmees, "")
+        kaupmees = str(rida.get("Kaupmees") or "").strip()
+        if not kaupmees:
+            return olemasolev  # jääb tühjaks
+
+        auto_kat = KAUPMEES_TO_KATEGOORIA.get(kaupmees, "")
+        return auto_kat or olemasolev
+
+    if "Kategooria" in df.columns:
+        df["Kategooria"] = df.apply(leia_kategooria, axis=1)
+
+    return df
