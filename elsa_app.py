@@ -2,25 +2,10 @@ import streamlit as st
 from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
+from konstandid import ALL_COLUMNS
 
 # --- Üldine seadistus ---
 st.set_page_config(page_title="Kulutuste analüüs ELSA", layout="wide")
-
-# --- Kategooriad vastavalt kirjeldusele ---
-TULU_KATEGOORIAD = ["Palk", "Investeerinud", "Lisatöö"]
-KULU_KATEGOORIAD = [
-    "Söök ja jook",
-    "Meelelahutus",
-    "Kommunaalid",
-    "Laenud",
-    "Auto/transport",
-    "Riided",
-    "Muu",
-    "Tervis",
-]
-
-ALL_COLUMNS = ["Timestamp", "Kuupäev", "Summa", "Tüüp", "Kategooria", "Kaupmees", "Kirjeldus"]
-
 
 # --- Abifunktsioonid ---
 
