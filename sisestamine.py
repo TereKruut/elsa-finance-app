@@ -1,6 +1,8 @@
 from abifunktsioonid import *
 from konstandid import *
 from datetime import datetime
+from kategoriseerimine import kategoriseeri
+
 
 def sisesta():
     st.header("✏️ Lisa uus kulu või sissetulek")
@@ -51,9 +53,9 @@ def sisesta():
 
             new_row = {
                 "Timestamp": timestamp,
-                "Kuupäev": kuupäev_sisse.strftime("%Y-%m-%d"),
+                "Kuup2ev": kuupäev_sisse.strftime("%Y-%m-%d"),
                 "Summa": summa_val,
-                "Tüüp": "Sissetulek",
+                "Tulu/kulu": "Tulu",
                 "Kategooria": kategooria_sisse,}
 
             st.session_state["sisestused_df"] = pd.concat(
@@ -87,12 +89,15 @@ def sisesta():
                 summa_val = float(summa_clean)
                 timestamp = datetime.now().isoformat(timespec="seconds")
 
+                # 👉 Kategooria määramine ENNE rea kokku panemist
+                kategooria_lõplik = kategoriseeri(kaupmees, kategooria_välja)
+
                 new_row = {
                     "Timestamp": timestamp,
-                    "Kuupäev": kuupäev_välja.strftime("%Y-%m-%d"),
+                    "Kuup2ev": kuupäev_välja.strftime("%Y-%m-%d"),
                     "Summa": summa_val,
-                    "Tüüp": "Kulu",
-                    "Kategooria": kategooria_välja,
+                    "Tulu/kulu": "Kulu",
+                    "Kategooria": kategooria_lõplik,
                     "Kaupmees": kaupmees,
                     "Kirjeldus": kirjeldus_välja,
                 }

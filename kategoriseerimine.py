@@ -1,6 +1,6 @@
 from konstandid import KULU_KATEGOORIAD, KAUPMEHED
-import pandas as pd
 
+# Kaardistus: kaupmees -> kulukategooria
 KAUPMEES_TO_KATEGOORIA = {
     "Rimi": "Söök ja jook",
     "Selver": "Söök ja jook",
@@ -10,34 +10,25 @@ KAUPMEES_TO_KATEGOORIA = {
     "Elektrum": "Kommunaalid",
     "Tartu Veevärk": "Kommunaalid",
     "LHV": "Laenud",
-    # lisa siia veel reegleid, kui tahad
+    # vajadusel lisa siia veel
 }
 
 
-def rakenda_kategoriseerimine(df: pd.DataFrame) -> pd.DataFrame:
+def kategoriseeri(kaupmees: str, olemasolev_kategooria: str) -> str:
     """
-    Täidab/muudab veeru 'Kategooria' kulukirjete puhul.
-    - Kui kasutaja on ise kategooria valinud, seda EI muudeta.
-    - Kui kategooria on tühi ja kaupmehele on vaste olemas, kategooria pannakse automaatselt.
+    Tagastab lõpliku kategooria väljamineku reale.
+
+    - Kui kasutaja on Kategooria ise valinud (mitte tühi) -> jääb samaks.
+    - Kui kategooria on tühi ja kaupmehele on vaste olemas -> kasutatakse automaatset kategooriat.
+    - Kui kumbagi pole, tagastab tühja stringi.
     """
+    olemasolev = (olemasolev_kategooria or "").strip()
+    if olemasolev:
+        return olemasolev
 
-    def leia_kategooria(rida):
-        # ainult kulud – sissetulekute kategooriaid ei puutu
-        if rida.get("Tüüp") != "Kulu":
-            return rida.get("Kategooria", "")
+    kaup = (kaupmees or "").strip()
+    if not kaup:
+        return olemasolev  # ei tea midagi, jätame tühjaks
 
-        olemasolev = str(rida.get("Kategooria") or "").strip()
-        if olemasolev:
-            return olemasolev
-
-        kaupmees = str(rida.get("Kaupmees") or "").strip()
-        if not kaupmees:
-            return olemasolev  # jääb tühjaks
-
-        auto_kat = KAUPMEES_TO_KATEGOORIA.get(kaupmees, "")
-        return auto_kat or olemasolev
-
-    if "Kategooria" in df.columns:
-        df["Kategooria"] = df.apply(leia_kategooria, axis=1)
-
-    return df
+    auto = KAUPMEES_TO_KATEGOORIA.get(kaup, "")
+    return auto or olemasolev

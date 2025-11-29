@@ -41,8 +41,8 @@ def puhasta_andmed(df: pd.DataFrame):
 
     df["Kategooria"].fillna("Määramata", inplace=True)
 
-    if "Tüüp" not in df.columns or df["Tüüp"].eq("").all():
-        df["Tüüp"] = "Määramata"
+    if "Tulu/kulu" not in df.columns or df["Tulu/kulu"].eq("").all():
+        df["Tulu/kulu"] = "Määramata"
 
     algne = len(df)
     df = df[df["Summa"] != 0]

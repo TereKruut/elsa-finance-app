@@ -32,7 +32,7 @@ def analyysi():
                 if df.empty:
                     st.error("Pärast puhastust ei jäänud ühtegi kehtivat rida.")
                 else:
-                    # 1. Filtrid: tüüp + kuupäevavahemik
+                    # 1. Filtrid: Tulu/kulu + kuupäevavahemik
                     st.markdown("### 1. Filtrid")
 
                     col1, col2 = st.columns(2)
@@ -54,9 +54,9 @@ def analyysi():
 
                     # Tüübifilter
                     if tyyp_filter == "Ainult kulud":
-                        df = df[df["Tüüp"] == "Kulu"]
+                        df = df[df["Tulu/kulu"] == "Kulu"]
                     elif tyyp_filter == "Ainult sissetulekud":
-                        df = df[df["Tüüp"] == "Sissetulek"]
+                        df = df[df["Tulu/kulu"] == "Tulu"]
 
                     # Kuupäevavahemik
                     if isinstance(date_range, (list, tuple)) and len(date_range) == 2:
