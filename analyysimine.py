@@ -87,19 +87,51 @@ def analyysi():
                         st.write("Kokku:", float(total))
                         st.dataframe(summary)
 
-                        # Protsentuaalne jaotus (pie)
-                        fig1, ax1 = plt.subplots(figsize=(6, 6))
-                        ax1.pie(by_cat, labels=by_cat.index, autopct="%1.1f%%", startangle=90)
-                        ax1.axis("equal")
-                        st.pyplot(fig1)
+                        # Protsentuaalne jaotus (horisontaalne tulpdiagramm)
+                        
+                        fig, ax = plt.subplots(figsize=(10, 6))
+                        ax.barh(by_cat.index, by_cat.values)
+                        ax.set_xlabel("Summa")
+                        ax.set_title("Kulu osakaal kategooriate kaupa (%)")
+                        plt.tight_layout()
+                        st.pyplot(fig)
 
-                        # Arvuline jaotus (tulpdiagramm)
-                        fig2, ax2 = plt.subplots(figsize=(8, 4))
-                        ax2.bar(by_cat.index.astype(str), by_cat.values)
+
+                        
+                        # Arvuline jaotus (tulpdiagramm) – sissetulekud rohelised, kulud punased, väärtused peal
+                        fig2, ax2 = plt.subplots(figsize=(10, 5))
+
+                        color_map = []
+                        for cat in by_cat.index:
+                            
+                            cat_type = df[df["Kategooria"] == cat]["Tulu/kulu"].iloc[0]
+                        
+                            if cat_type == "Tulu":
+                                color_map.append("green")
+                            else:
+                                color_map.append("red")
+                        
+                        bars = ax2.bar(by_cat.index.astype(str), by_cat.values, color=color_map)
+                        
+                        # Add numbers above bars
+                        for bar in bars:
+                            height = bar.get_height()
+                            ax2.annotate(
+                                f"{height:.0f}",
+                                xy=(bar.get_x() + bar.get_width() / 2, height),
+                                xytext=(0, 5),
+                                textcoords="offset points",
+                                ha="center",
+                                va="bottom",
+                                fontsize=9,
+                            )
+                        
                         ax2.set_ylabel("Summa")
                         ax2.set_title("Summa kategooriate kaupa")
                         plt.setp(ax2.get_xticklabels(), rotation=45, ha="right")
+                        
                         st.pyplot(fig2)
+
 
                         # 3. Detailne vaade ühe kategooria ajas (päev/nädal/kuu/kvartal/aasta)
                         st.markdown("### 3. Ajavahemiku analüüs ühe kategooria kaupa")
