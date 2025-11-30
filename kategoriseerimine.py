@@ -1,5 +1,6 @@
 # kategoriseerimine.py
-from andmebaas import load_db
+from andmebaas import load_db, save_db
+
 
 def kategoriseeri(kaupmees: str, olemasolev_kategooria: str) -> str:
     """
