@@ -1,13 +1,10 @@
 # kategoriseerimine.py
-from andmebaas import load_db, save_db
 
+from konstandid import KULU_KATEGOORIAD, KAUPMEHED
 
-def kategoriseeri(kaupmees: str, olemasolev_kategooria: str) -> str:
+def kategoriseeri(kaupmees: str, olemasolev_kategooria: str, mappings: dict) -> str:
     """
     Tagastab lõpliku kategooria väljamineku reale.
-    - Kui kasutaja on Kategooria ise valinud (mitte tühi) -> jääb samaks.
-    - Kui kategooria on tühi ja kaupmehele on vaste olemas -> kasutatakse automaatset kategooriat.
-    - Kui kumbagi pole, tagastab tühja stringi.
     """
     olemasolev = (olemasolev_kategooria or "").strip()
     if olemasolev:
@@ -15,8 +12,6 @@ def kategoriseeri(kaupmees: str, olemasolev_kategooria: str) -> str:
 
     kaup = (kaupmees or "").strip()
     if not kaup:
-        return olemasolev  # ei tea midagi, jätame tühjaks
+        return ""
 
-    db = load_db()
-    auto = db["merchants"].get(kaup, "")
-    return auto or olemasolev
+    return mappings.get(kaup, "")
