@@ -1,5 +1,5 @@
 # --- Kategooriad vastavalt kirjeldusele ---
-TULU_KATEGOORIAD = ["Palk", "Investeerinud", "Lisatöö"]
+TULU_KATEGOORIAD = ["Palk", "Investeeringud", "Lisatöö"]
 KULU_KATEGOORIAD = ["",
     "Söök ja jook",
     "Meelelahutus",
