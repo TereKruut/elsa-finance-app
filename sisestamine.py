@@ -5,39 +5,6 @@ from kategoriseerimine import kategoriseeri
 from andmebaas import load_db
 import streamlit as st
 import pandas as pd
-from github import Github
-
-# --- GITHUBI FUNKTSIOONID ---
-
-def saada_soov_githubi(tyyp, nimi, seos=""):
-    """
-    Loob GitHubi repositooriumis uue 'Issue', et arendaja teaks andmebaasi uuendada.
-    """
-    try:
-        # Kontrollime, kas saladused on olemas
-        if "github" not in st.secrets:
-            return False, "GitHubi seadistus puudub (secrets)."
-
-        token = st.secrets["github"]["token"]
-        repo_name = st.secrets["github"]["repo_name"]
-
-        g = Github(token)
-        repo = g.get_repo(repo_name)
-        
-        # Koostame Issue sisu
-        if tyyp == "Kaupmees":
-            title = f"Uus kaupmees: {nimi}"
-            body = f"Kasutaja soovib lisada kaupmehe: **{nimi}**\nSeos kategooriaga: **{seos}**"
-        else:
-            title = f"Uus kategooria: {nimi}"
-            body = f"Kasutaja soovib lisada kategooria: **{nimi}**"
-
-        repo.create_issue(title=title, body=body, labels=["enhancement"])
-        
-        return True, "Soov edastatud arendajale (GitHub Issue)!"
-    except Exception as e:
-        return False, f"Viga saatmisel: {str(e)}"
-
 
 # --- PÕHIFUNKTSIOON ---
 
