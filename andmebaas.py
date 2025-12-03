@@ -40,4 +40,4 @@ DEFAULT_DB = {
 }
 
 def load_db():
-    return data
+    return DEFAULT_DB
