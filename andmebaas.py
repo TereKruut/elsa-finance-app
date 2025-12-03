@@ -13,7 +13,8 @@ DEFAULT_DB = {
         "Transport",
         "Kodu",
         "Investeeringud",
-        "Muu"
+        "Muu",
+        "Laps"
     ],
     "merchants": {
         "Rimi": "Söök ja jook",
@@ -29,7 +30,14 @@ DEFAULT_DB = {
         "Tartu Veevärk": "Kommunaalid",
         "Alexela": "Transport",
         "Circle K": "Transport",
-        "IKEA": "Kodu"
+        "IKEA": "Kodu",
+        "Swedbank": "Laenud",
+        "LHV": "Laenud", 
+        "SEB": "Laenud", 
+        "III sammas": "Investeeringud",
+        "Lapse riided": "Laps",
+        "Riided": "Muu",
+        "Mikroinvesteerimine": "Investeeringud"
     }
 }
 
