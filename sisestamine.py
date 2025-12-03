@@ -1,6 +1,5 @@
 from abifunktsioonid import *
 from datetime import datetime
-from kategoriseerimine import kategoriseeri
 from andmebaas import load_db
 import streamlit as st
 import pandas as pd
