@@ -1,6 +1,6 @@
 from abifunktsioonid import prepare_session_df
 from datetime import datetime
-from andmebaas import load_db, TULU_KATEGOORIAD   # ✅ FIX HERE
+from andmebaas import load_db, TULU_KATEGOORIAD
 import streamlit as st
 import pandas as pd
 
