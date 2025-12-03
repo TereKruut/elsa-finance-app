@@ -2,7 +2,7 @@ import pandas as pd
 from abifunktsioonid import puhasta_andmed
 import matplotlib.pyplot as plt
 import streamlit as st
-from datetime import date # Impordi date type
+from datetime import date # Impordi kuupäeva tüüp
 
 
 def analyysi():
