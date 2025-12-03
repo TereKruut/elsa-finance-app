@@ -1,5 +1,4 @@
 from abifunktsioonid import *
-from konstandid import *
 from datetime import datetime
 from kategoriseerimine import kategoriseeri
 from andmebaas import load_db
